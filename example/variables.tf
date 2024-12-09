@@ -7,7 +7,6 @@ variable "region" {
   default     = "us-east-1"
 }
 
-
 variable "broker_type" {
   description = "Specify the broker type: RabbitMQ or ActiveMQ"
   type        = string
@@ -15,42 +14,42 @@ variable "broker_type" {
 }
 
 variable "broker_name" {
-  description = "Name of the RabbitMQ broker."
+  description = "Name of the RabbitMQ or ActiveMQ broker."
   type        = string
 }
 
 variable "engine_version" {
-  description = "Version of the RabbitMQ engine."
+  description = "Version of the RabbitMQ or ActiveMQ engine."
   type        = string
   default     = "3.8.26"
 }
 
 variable "host_instance_type" {
-  description = "Instance type for the RabbitMQ broker."
+  description = "Instance type for the RabbitMQ or ActiveMQ broker."
   type        = string
   default     = "mq.t3.micro"
 }
 
 variable "subnet_ids" {
-  description = "List of subnet IDs for the RabbitMQ broker."
+  description = "List of subnet IDs for the RabbitMQ or ActiveMQ broker."
   type        = list(string)
   default     = []
 }
 
 variable "publicly_accessible" {
-  description = "Whether the RabbitMQ broker is publicly accessible."
+  description = "Whether the RabbitMQ or ActiveMQ broker is publicly accessible."
   type        = bool
   default     = false
 }
 
 variable "deployment_mode" {
-  description = "Deployment mode for the RabbitMQ broker."
+  description = "Deployment mode for the RabbitMQ or ActiveMQ broker."
   type        = string
   default     = "SINGLE_INSTANCE"
 }
 
 variable "storage_type" {
-  description = "Storage type for the RabbitMQ broker."
+  description = "Storage type for the RabbitMQ or ActiveMQ broker."
   type        = string
   default     = "ebs"
 }
@@ -62,11 +61,10 @@ variable "security_group_name" {
 }
 
 variable "enable_logging" {
-  description = "Enable general logging for the RabbitMQ broker."
+  description = "Enable general logging for the RabbitMQ or ActiveMQ broker."
   type        = bool
   default     = false
 }
-
 
 variable "ingress_rules" {
   description = "A list of ingress rules for the security group."
