@@ -1,21 +1,3 @@
-################################################################################
-## defaults
-################################################################################
-terraform {
-  required_version = ">= 1.5.0"
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-    random = {
-      version = ">= 3.0"
-      source  = "hashicorp/random"
-    }
-  }
-}
-
 ########### Security Group for brokerMQ #########
 resource "aws_security_group" "this" {
   name        = var.security_group_name
