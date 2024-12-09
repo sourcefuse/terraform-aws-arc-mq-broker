@@ -1,8 +1,17 @@
 # terraform-aws-arc-mq-broker
+![Module Structure](./static/banner.png)
+# [terraform-aws-arc-mq-broker](https://github.com/sourcefuse/terraform-aws-arc-mq-broker)
+
+<a href="https://github.com/sourcefuse/terraform-aws-arc-mq-broker/releases/latest"><img src="https://img.shields.io/github/release/sourcefuse/terraform-aws-arc-mq-broker.svg?style=for-the-badge" alt="Latest Release"/></a> <a href="https://github.com/sourcefuse/terraform-aws-arc-mq-broker/commits"><img src="https://img.shields.io/github/last-commit/sourcefuse/terraform-aws-arc-mq-broker.svg?style=for-the-badge" alt="Last Updated"/></a> ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=sourcefuse_terraform-aws-arc-mq-broker&token=4b8c1e882ad792f7a14686684a563bccb5e6ee4c)](https://sonarcloud.io/summary/new_code?id=sourcefuse_terraform-aws-arc-mq-broker)
+
+[![Known Vulnerabilities](https://github.com/sourcefuse/terraform-aws-arc-mq-broker/actions/workflows/snyk.yaml/badge.svg)](https://github.com/sourcefuse/terraform-aws-arc-mq-broker/actions/workflows/snyk.yaml)
+
 
 ## Overview
 
-This Terraform module provides an easy and scalable way to deploy and manage Amazon MQ brokers. It supports various deployment options and configurations, including engine types (ActiveMQ and RabbitMQ), instance classes, storage types, and security settings. The module simplifies the setup of brokers for message-oriented middleware with high availability and fault tolerance.
+SourceFuse AWS Reference Architecture (ARC) Terraform module provides an easy and scalable way to deploy and manage Amazon MQ brokers. It supports various deployment options and configurations, including engine types (ActiveMQ and RabbitMQ), instance classes, storage types, and security settings. The module simplifies the setup of brokers for message-oriented middleware with high availability and fault tolerance.
 
 ## Usage
 
