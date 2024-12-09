@@ -7,6 +7,30 @@ variable "region" {
   default     = "us-east-1"
 }
 
+variable "environment" {
+  type        = string
+  description = "Name of the environment, i.e. dev, stage, prod"
+  default     = "dev"
+}
+
+variable "namespace" {
+  type        = string
+  default     = "arc"
+  description = "Namespace of the project, i.e. arc"
+}
+
+variable "subnet_names" {
+  type        = list(string)
+  description = "List of subnet names to lookup"
+  default     = ["arc-poc-private-subnet-private-us-east-1a", "arc-poc-private-subnet-private-us-east-1b"]
+}
+
+variable "vpc_name" {
+  type        = string
+  description = "Name of the VPC to add the resources"
+  default     = "arc-poc-vpc"
+}
+
 variable "broker_type" {
   description = "Specify the broker type: RabbitMQ or ActiveMQ"
   type        = string
@@ -30,12 +54,6 @@ variable "host_instance_type" {
   default     = "mq.t3.micro"
 }
 
-variable "subnet_ids" {
-  description = "List of subnet IDs for the RabbitMQ or ActiveMQ broker."
-  type        = list(string)
-  default     = []
-}
-
 variable "publicly_accessible" {
   description = "Whether the RabbitMQ or ActiveMQ broker is publicly accessible."
   type        = bool
@@ -53,7 +71,6 @@ variable "storage_type" {
   type        = string
   default     = "ebs"
 }
-
 
 variable "security_group_name" {
   description = "The name of the security group"

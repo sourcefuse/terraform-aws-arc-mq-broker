@@ -22,7 +22,7 @@ module "tags" {
   version = "1.2.6"
 
   environment = terraform.workspace
-  project     = "terraform-aws-arc-opensearch"
+  project     = "terraform-aws-arc-mq-broker"
 
   extra_tags = {
     Example = "True"
@@ -35,7 +35,7 @@ module "mq_broker" {
   broker_type         = var.broker_type
   engine_version      = var.engine_version
   host_instance_type  = var.host_instance_type
-  subnet_ids          = var.subnet_ids
+  subnet_ids          = data.aws_subnets.private.ids
   security_group_name = var.security_group_name
   publicly_accessible = var.publicly_accessible
   deployment_mode     = var.deployment_mode
