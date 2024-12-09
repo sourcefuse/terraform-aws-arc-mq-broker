@@ -40,11 +40,9 @@ module "mq_broker" {
   publicly_accessible = var.publicly_accessible
   deployment_mode     = var.deployment_mode
   storage_type        = var.storage_type
-  apply_immediately   = var.apply_immediately
   users               = var.users
   users_replica       = var.users_replica
   enable_logging      = var.enable_logging
-  use_aws_owned_key   = var.use_aws_owned_key
   ingress_rules       = var.ingress_rules
   egress_rules        = var.egress_rules
   tags                = module.tags.tags

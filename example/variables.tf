@@ -55,11 +55,6 @@ variable "storage_type" {
   default     = "ebs"
 }
 
-variable "apply_immediately" {
-  description = "Whether changes should be applied immediately."
-  type        = bool
-  default     = true
-}
 
 variable "security_group_name" {
   description = "The name of the security group"
@@ -70,12 +65,6 @@ variable "enable_logging" {
   description = "Enable general logging for the RabbitMQ broker."
   type        = bool
   default     = false
-}
-
-variable "use_aws_owned_key" {
-  description = "Use AWS-owned KMS CMK for encryption."
-  type        = bool
-  default     = true
 }
 
 
