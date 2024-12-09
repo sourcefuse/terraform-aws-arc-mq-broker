@@ -1,4 +1,3 @@
-# terraform-aws-arc-mq-broker
 ![Module Structure](./static/banner.png)
 # [terraform-aws-arc-mq-broker](https://github.com/sourcefuse/terraform-aws-arc-mq-broker)
 
