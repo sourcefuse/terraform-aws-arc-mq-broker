@@ -35,6 +35,7 @@ module "mq_broker" {
   broker_type         = var.broker_type
   engine_version      = var.engine_version
   host_instance_type  = var.host_instance_type
+  vpc_id              = data.aws_vpc.default.id
   subnet_ids          = data.aws_subnets.private.ids
   security_group_name = var.security_group_name
   publicly_accessible = var.publicly_accessible
