@@ -1,16 +1,54 @@
-# terraform-aws-module-template
+# terraform-aws-arc-mq-broker
 
 ## Overview
 
-SourceFuse AWS Reference Architecture (ARC) Terraform module for managing _________.
+This Terraform module provides an easy and scalable way to deploy and manage Amazon MQ brokers. It supports various deployment options and configurations, including engine types (ActiveMQ and RabbitMQ), instance classes, storage types, and security settings. The module simplifies the setup of brokers for message-oriented middleware with high availability and fault tolerance.
 
 ## Usage
 
-To see a full example, check out the [main.tf](./example/main.tf) file in the example folder.  
+See the `example` folder for a working module example.  
 
 ```hcl
-module "this" {
-  source = "git::https://github.com/sourcefuse/terraform-aws-refarch-<module_name>"
+################################################################################
+## RabbitMQ
+################################################################################
+module "mq_broker" {
+  source              = "../"
+  broker_name         = var.broker_name
+  broker_type         = var.broker_type
+  engine_version      = var.engine_version
+  host_instance_type  = var.host_instance_type
+  subnet_ids          = var.subnet_ids
+  security_group_name = var.security_group_name
+  deployment_mode     = var.deployment_mode
+  users               = var.users
+  enable_logging      = var.enable_logging
+  ingress_rules       = var.ingress_rules
+  egress_rules        = var.egress_rules
+  tags                = module.tags.tags
+
+}
+
+################################################################################
+## Apache ActiveMQ
+################################################################################
+module "mq_broker" {
+  source              = "../"
+  broker_name         = var.broker_name
+  broker_type         = var.broker_type
+  engine_version      = var.engine_version
+  host_instance_type  = var.host_instance_type
+  subnet_ids          = var.subnet_ids
+  storage_type        = var.storage_type
+  security_group_name = var.security_group_name
+  deployment_mode     = var.deployment_mode
+  users_replica       = var.users_replica
+  users               = var.users
+  enable_logging      = var.enable_logging
+  ingress_rules       = var.ingress_rules
+  egress_rules        = var.egress_rules
+  tags                = module.tags.tags
+
 }
 ```
 
