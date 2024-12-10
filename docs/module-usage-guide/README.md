@@ -25,10 +25,21 @@ Before using this module, ensure you have the following:
 To use the module in your Terraform configuration, include the following source block:
 
 ```hcl
-module "arc-________" {
-  source  = "sourcefuse/arc-mq-broker/aws"
-  version = "0.0.1"
-  # insert the 6 required variables here
+module "arc-mq-broker" {
+  source              = "sourcefuse/arc-mq-broker/aws"
+  version             = "0.0.1"
+  broker_name         = var.broker_name
+  broker_type         = var.broker_type
+  engine_version      = var.engine_version
+  host_instance_type  = var.host_instance_type
+  subnet_ids          = var.subnet_ids
+  security_group_name = var.security_group_name
+  deployment_mode     = var.deployment_mode
+  users               = var.users
+  enable_logging      = var.enable_logging
+  ingress_rules       = var.ingress_rules
+  egress_rules        = var.egress_rules
+  tags                = module.tags.tags
 }
 ```
 
@@ -52,10 +63,8 @@ Integrate the module with your existing Terraform mono repo configuration, follo
 
 ### Required AWS Permissions
 
-Ensure that the AWS credentials used to execute Terraform have the necessary permissions to create, list and modify:
+Ensure that the AWS credentials used to execute Terraform have the necessary permissions to create an AWS Broker MQ.
 
--
--
 
 ## Module Configuration
 
