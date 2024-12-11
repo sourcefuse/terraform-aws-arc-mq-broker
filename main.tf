@@ -1,7 +1,6 @@
 ########### Security Group for brokerMQ #########
 module "arc_security_group" {
   source = "git::git@github.com:sourcefuse/terraform-aws-arc-security-group.git?ref=0.0.1"
-  # version = "0.0.1"
 
   name          = "${var.namespace}-${var.environment}-broker-mq-sg"
   vpc_id        = var.vpc_id
@@ -23,7 +22,7 @@ resource "random_password" "mq_broker" {
 
 ######### Store the generated password in ssm #########
 resource "aws_ssm_parameter" "user_password" {
-  name  = "${var.namespace}/${var.environment}/mq/broker/user_password"
+  name  = "/${var.namespace}/${var.environment}/mq/broker/user_password"
   type  = "SecureString"
   value = random_password.mq_broker.result
 }
@@ -36,14 +35,14 @@ resource "aws_ssm_parameter" "replication_user_password" {
 }
 
 resource "aws_ssm_parameter" "user_name" {
-  name  = "${var.namespace}/${var.environment}/mq/broker/user_name"
+  name  = "/${var.namespace}/${var.environment}/mq/broker/user_name"
   type  = "SecureString"
   value = var.users.username
 }
 
 resource "aws_ssm_parameter" "replication_user" {
   count = var.broker_type == "ActiveMQ" ? 1 : 0
-  name  = "${var.namespace}/${var.environment}/mq/broker/replication_user_name"
+  name  = "/${var.namespace}/${var.environment}/mq/broker/replication_user_name"
   type  = "SecureString"
   value = var.users.username
 }
