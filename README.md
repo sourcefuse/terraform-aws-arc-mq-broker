@@ -22,17 +22,17 @@ See the `example` folder for a working module example.
 ################################################################################
 module "mq_broker" {
   source              = "../"
-  broker_name         = var.broker_name
+  name                = var.name
   broker_type         = var.broker_type
   engine_version      = var.engine_version
   host_instance_type  = var.host_instance_type
-  subnet_ids          = var.subnet_ids
-  security_group_name = var.security_group_name
+  vpc_id              = data.aws_vpc.default.id
+  subnet_ids          = data.aws_subnets.private.ids
   deployment_mode     = var.deployment_mode
   users               = var.users
   enable_logging      = var.enable_logging
-  ingress_rules       = var.ingress_rules
-  egress_rules        = var.egress_rules
+  ingress_rules       = local.security_group_data.ingress_rules
+  egress_rules        = local.security_group_data.egress_rules
   tags                = module.tags.tags
 
 }
@@ -42,19 +42,19 @@ module "mq_broker" {
 ################################################################################
 module "mq_broker" {
   source              = "../"
-  broker_name         = var.broker_name
+  name                = var.name
   broker_type         = var.broker_type
   engine_version      = var.engine_version
   host_instance_type  = var.host_instance_type
-  subnet_ids          = var.subnet_ids
+  vpc_id              = data.aws_vpc.default.id
+  subnet_ids          = data.aws_subnets.private.ids
   storage_type        = var.storage_type
-  security_group_name = var.security_group_name
   deployment_mode     = var.deployment_mode
   users_replica       = var.users_replica
   users               = var.users
   enable_logging      = var.enable_logging
-  ingress_rules       = var.ingress_rules
-  egress_rules        = var.egress_rules
+  ingress_rules       = local.security_group_data.ingress_rules
+  egress_rules        = local.security_group_data.egress_rules
   tags                = module.tags.tags
 
 }
