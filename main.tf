@@ -1,33 +1,18 @@
 ########### Security Group for brokerMQ #########
-resource "aws_security_group" "this" {
-  name        = var.security_group_name
-  description = "Security group for the brokerMQ"
-  vpc_id      = var.vpc_id
+module "arc_security_group" {
+  source = "git::git@github.com:sourcefuse/terraform-aws-arc-security-group.git?ref=0.0.1"
+  # version = "0.0.1"
 
-  dynamic "ingress" {
-    for_each = var.ingress_rules
-    content {
-      from_port   = ingress.value.from_port
-      to_port     = ingress.value.to_port
-      protocol    = ingress.value.protocol
-      cidr_blocks = ingress.value.cidr_blocks
-    }
-  }
+  name          = "${var.namespace}-${var.environment}-broker-mq-sg"
+  vpc_id        = var.vpc_id
+  ingress_rules = var.ingress_rules
+  egress_rules  = var.egress_rules
 
-  dynamic "egress" {
-    for_each = var.egress_rules
-    content {
-      from_port   = egress.value.from_port
-      to_port     = egress.value.to_port
-      protocol    = egress.value.protocol
-      cidr_blocks = egress.value.cidr_blocks
-    }
-  }
   tags = var.tags
 }
 
 ######### Generate a random password #########
-resource "random_password" "rabbitmq_user_password" {
+resource "random_password" "mq_broker" {
   length           = 32
   special          = true
   upper            = true
@@ -38,27 +23,27 @@ resource "random_password" "rabbitmq_user_password" {
 
 ######### Store the generated password in ssm #########
 resource "aws_ssm_parameter" "user_password" {
-  name  = "/mq/broker/${var.namespace}/${var.environment}/user_password"
+  name  = "${var.namespace}/${var.environment}/mq/broker/user_password"
   type  = "SecureString"
-  value = random_password.rabbitmq_user_password.result
+  value = random_password.mq_broker.result
 }
 
 resource "aws_ssm_parameter" "replication_user_password" {
   count = var.broker_type == "ActiveMQ" ? 1 : 0
-  name  = "/mq/broker/${var.namespace}/${var.environment}/replication_user_password"
+  name  = "/${var.namespace}/${var.environment}/mq/broker/replication_user_password"
   type  = "SecureString"
-  value = random_password.rabbitmq_user_password.result
+  value = random_password.mq_broker.result
 }
 
 resource "aws_ssm_parameter" "user_name" {
-  name  = "/mq/broker/${var.namespace}/${var.environment}/user_name"
+  name  = "${var.namespace}/${var.environment}/mq/broker/user_name"
   type  = "SecureString"
   value = var.users.username
 }
 
 resource "aws_ssm_parameter" "replication_user" {
   count = var.broker_type == "ActiveMQ" ? 1 : 0
-  name  = "/mq/broker/${var.namespace}/${var.environment}/replication_user_name"
+  name  = "${var.namespace}/${var.environment}/mq/broker/replication_user_name"
   type  = "SecureString"
   value = var.users.username
 }
@@ -68,11 +53,11 @@ resource "aws_ssm_parameter" "replication_user" {
 ########################################################################
 resource "aws_mq_broker" "rabbit-mq" {
   count                      = var.broker_type == "RabbitMQ" ? 1 : 0
-  broker_name                = var.broker_name
+  broker_name                = var.name
   engine_type                = var.broker_type
   engine_version             = var.engine_version
   host_instance_type         = var.host_instance_type
-  security_groups            = var.publicly_accessible ? null : [aws_security_group.this.id]
+  security_groups            = var.publicly_accessible ? null : [module.arc_security_group.id]
   subnet_ids                 = var.publicly_accessible ? null : var.subnet_ids
   publicly_accessible        = var.publicly_accessible
   deployment_mode            = var.deployment_mode
@@ -112,11 +97,11 @@ resource "aws_mq_broker" "rabbit-mq" {
 ########################################################################
 resource "aws_mq_broker" "active-mq" {
   count                      = var.broker_type == "ActiveMQ" ? 1 : 0
-  broker_name                = var.broker_name
+  broker_name                = var.name
   engine_type                = var.broker_type
   engine_version             = var.engine_version
   host_instance_type         = var.host_instance_type
-  security_groups            = [aws_security_group.this.id]
+  security_groups            = [module.arc_security_group.id]
   subnet_ids                 = var.subnet_ids
   publicly_accessible        = var.publicly_accessible
   deployment_mode            = var.deployment_mode

@@ -31,21 +31,20 @@ module "tags" {
 
 module "mq_broker" {
   source              = "../"
-  broker_name         = var.broker_name
+  name                = var.name
   broker_type         = var.broker_type
   engine_version      = var.engine_version
   host_instance_type  = var.host_instance_type
   vpc_id              = data.aws_vpc.default.id
   subnet_ids          = data.aws_subnets.private.ids
-  security_group_name = var.security_group_name
   publicly_accessible = var.publicly_accessible
   deployment_mode     = var.deployment_mode
   storage_type        = var.storage_type
   users               = var.users
   users_replica       = var.users_replica
   enable_logging      = var.enable_logging
-  ingress_rules       = var.ingress_rules
-  egress_rules        = var.egress_rules
+  ingress_rules       = local.security_group_data.ingress_rules
+  egress_rules        = local.security_group_data.egress_rules
   tags                = module.tags.tags
 
 }

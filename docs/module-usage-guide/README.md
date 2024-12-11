@@ -84,8 +84,11 @@ For basic usage, see the [example](https://github.com/sourcefuse/terraform-aws-a
 
 This example will create:
 
--
--
+- A RabbitMQ broker named example-broker in Active-Standby Multi-AZ deployment mode.
+- A security group with ingress and egress rules to allow communication within the VPC and outbound traffic.
+- Subnets for deploying the broker for high availability.
+- A CloudWatch log group for broker logs.
+- User credentials for managing broker access.
 
 ### Tips and Recommendations
 

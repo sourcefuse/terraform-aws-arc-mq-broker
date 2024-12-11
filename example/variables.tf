@@ -37,7 +37,7 @@ variable "broker_type" {
   default     = "RabbitMQ"
 }
 
-variable "broker_name" {
+variable "name" {
   description = "Name of the RabbitMQ or ActiveMQ broker."
   type        = string
 }
@@ -72,39 +72,11 @@ variable "storage_type" {
   default     = "ebs"
 }
 
-variable "security_group_name" {
-  description = "The name of the security group"
-  type        = string
-}
-
 variable "enable_logging" {
   description = "Enable general logging for the RabbitMQ or ActiveMQ broker."
   type        = bool
   default     = false
 }
-
-variable "ingress_rules" {
-  description = "A list of ingress rules for the security group."
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
-}
-
-variable "egress_rules" {
-  description = "A list of egress rules for the security group."
-  type = list(object({
-    from_port   = number
-    to_port     = number
-    protocol    = string
-    cidr_blocks = list(string)
-  }))
-  default = []
-}
-
 
 variable "users" {
   description = "List of users for the ActiveMQ broker"
