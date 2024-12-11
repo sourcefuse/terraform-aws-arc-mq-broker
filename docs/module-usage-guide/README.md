@@ -44,7 +44,7 @@ module "arc-mq-broker" {
 }
 ```
 
-Refer to the [Terraform Registry](https://registry.terraform.io/modules/sourcefuse/arc-ecs/aws/latest) for the latest version.
+Refer to the [Terraform Registry](https://registry.terraform.io/modules/sourcefuse/arc-mq-broker/aws/latest) for the latest version.
 
 ### Integration with Existing Terraform Configurations
 
