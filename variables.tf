@@ -138,6 +138,7 @@ variable "security_group_data" {
       from_port                = number
       ip_protocol              = string
       to_port                  = string
+      self                     = optional(bool, false)
     })), [])
     egress_rules = optional(list(object({
       description                   = optional(string, null)
@@ -146,6 +147,7 @@ variable "security_group_data" {
       from_port                     = number
       ip_protocol                   = string
       to_port                       = string
+      prefix_list_id                = optional(string, null)
     })), [])
   })
   description = "(optional) Security Group data"
