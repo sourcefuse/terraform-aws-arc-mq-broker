@@ -8,7 +8,7 @@ This document provides guidelines and instructions for users looking to implemen
 
 ### Module Overview
 
-The [terraform-aws-arc-mq-broker](https://github.com/sourcefuse/terraform-aws-arc-mq-broker) to implement Terraform module for setting up an OpenSearch cluster
+The [terraform-aws-arc-mq-broker](https://github.com/sourcefuse/terraform-aws-arc-mq-broker) to implement Terraform module for setting up an AWS Broker MQ
 
 ### Prerequisites
 
@@ -28,17 +28,18 @@ To use the module in your Terraform configuration, include the following source 
 module "arc-mq-broker" {
   source              = "sourcefuse/arc-mq-broker/aws"
   version             = "0.0.1"
-  broker_name         = var.broker_name
+  name                = var.name
   broker_type         = var.broker_type
   engine_version      = var.engine_version
   host_instance_type  = var.host_instance_type
-  subnet_ids          = var.subnet_ids
-  security_group_name = var.security_group_name
+  vpc_id              = data.aws_vpc.default.id
+  subnet_ids          = data.aws_subnets.private.ids
+  publicly_accessible = var.publicly_accessible
   deployment_mode     = var.deployment_mode
   users               = var.users
   enable_logging      = var.enable_logging
-  ingress_rules       = var.ingress_rules
-  egress_rules        = var.egress_rules
+  ingress_rules       = local.security_group_data.ingress_rules
+  egress_rules        = local.security_group_data.egress_rules
   tags                = module.tags.tags
 }
 ```
