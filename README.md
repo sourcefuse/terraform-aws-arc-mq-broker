@@ -21,7 +21,8 @@ See the `example` folder for a working module example.
 ## RabbitMQ
 ################################################################################
 module "mq_broker" {
-  source              = "../"
+  source              = "sourcefuse/arc-mq-broker/aws"
+  version             = "0.0.1"
   name                = var.name
   broker_type         = var.broker_type
   engine_version      = var.engine_version
@@ -31,8 +32,7 @@ module "mq_broker" {
   deployment_mode     = var.deployment_mode
   users               = var.users
   enable_logging      = var.enable_logging
-  ingress_rules       = local.security_group_data.ingress_rules
-  egress_rules        = local.security_group_data.egress_rules
+  security_group_data = local.security_group_data
   tags                = module.tags.tags
 
 }
@@ -41,7 +41,8 @@ module "mq_broker" {
 ## Apache ActiveMQ
 ################################################################################
 module "mq_broker" {
-  source              = "../"
+  source              = "sourcefuse/arc-mq-broker/aws"
+  version             = "0.0.1"
   name                = var.name
   broker_type         = var.broker_type
   engine_version      = var.engine_version
@@ -53,8 +54,7 @@ module "mq_broker" {
   users_replica       = var.users_replica
   users               = var.users
   enable_logging      = var.enable_logging
-  ingress_rules       = local.security_group_data.ingress_rules
-  egress_rules        = local.security_group_data.egress_rules
+  security_group_data = local.security_group_data
   tags                = module.tags.tags
 
 }
@@ -103,19 +103,18 @@ module "mq_broker" {
 | <a name="input_broker_type"></a> [broker\_type](#input\_broker\_type) | Specify the broker type: RabbitMQ or ActiveMQ | `string` | `"RabbitMQ"` | no |
 | <a name="input_data_replication_primary_broker_arn"></a> [data\_replication\_primary\_broker\_arn](#input\_data\_replication\_primary\_broker\_arn) | The ARN of the primary broker for data replication | `string` | `""` | no |
 | <a name="input_deployment_mode"></a> [deployment\_mode](#input\_deployment\_mode) | Deployment mode for the RabbitMQ or ActiveMQ broker. | `string` | `"SINGLE_INSTANCE"` | no |
-| <a name="input_egress_rules"></a> [egress\_rules](#input\_egress\_rules) | (optional) List of egress rules for the security group. | <pre>list(object({<br>    description                   = optional(string, null)<br>    cidr_block                    = optional(string, null)<br>    destination_security_group_id = optional(string, null)<br>    from_port                     = number<br>    ip_protocol                   = string<br>    to_port                       = string<br>    prefix_list_id                = optional(string, null)<br>  }))</pre> | `[]` | no |
 | <a name="input_enable_data_replication"></a> [enable\_data\_replication](#input\_enable\_data\_replication) | Enable or disable data replication for the broker | `bool` | `false` | no |
 | <a name="input_enable_logging"></a> [enable\_logging](#input\_enable\_logging) | Enable general logging for the RabbitMQ broker. | `bool` | `false` | no |
 | <a name="input_encryption_options"></a> [encryption\_options](#input\_encryption\_options) | Encryption options for the resource. | <pre>object({<br>    use_aws_owned_key = bool<br>    kms_key_id        = string<br>  })</pre> | <pre>{<br>  "kms_key_id": null,<br>  "use_aws_owned_key": true<br>}</pre> | no |
 | <a name="input_engine_version"></a> [engine\_version](#input\_engine\_version) | Version of the RabbitMQ or ActiveMQ engine. | `string` | `"3.8.26"` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Name of the environment, i.e. dev, stage, prod | `string` | `"dev"` | no |
 | <a name="input_host_instance_type"></a> [host\_instance\_type](#input\_host\_instance\_type) | Instance type for the RabbitMQ or ActiveMQ broker. | `string` | `"mq.t3.micro"` | no |
-| <a name="input_ingress_rules"></a> [ingress\_rules](#input\_ingress\_rules) | (optional) List of ingress rules for the security group. | <pre>list(object({<br>    description              = optional(string, null)<br>    cidr_block               = optional(string, null)<br>    source_security_group_id = optional(string, null)<br>    from_port                = number<br>    ip_protocol              = string<br>    to_port                  = string<br>    self                     = optional(bool, false)<br>  }))</pre> | `[]` | no |
 | <a name="input_ldap_config"></a> [ldap\_config](#input\_ldap\_config) | Configuration for LDAP server | <pre>object({<br>    required                 = bool<br>    hosts                    = list(string)<br>    role_base                = string<br>    role_name                = string<br>    role_search_matching     = string<br>    role_search_subtree      = bool<br>    service_account_password = string<br>    service_account_username = string<br>    user_base                = string<br>    user_role_name           = string<br>    user_search_matching     = string<br>    user_search_subtree      = bool<br>  })</pre> | <pre>{<br>  "hosts": [],<br>  "required": false,<br>  "role_base": "",<br>  "role_name": "",<br>  "role_search_matching": "",<br>  "role_search_subtree": false,<br>  "service_account_password": "",<br>  "service_account_username": "",<br>  "user_base": "",<br>  "user_role_name": "",<br>  "user_search_matching": "",<br>  "user_search_subtree": false<br>}</pre> | no |
 | <a name="input_maintenance_window"></a> [maintenance\_window](#input\_maintenance\_window) | Maintenance window configuration including day, time, and time zone. | <pre>object({<br>    day_of_week = string<br>    time_of_day = string<br>    time_zone   = string<br>  })</pre> | <pre>{<br>  "day_of_week": "MONDAY",<br>  "time_of_day": "02:00",<br>  "time_zone": "UTC"<br>}</pre> | no |
 | <a name="input_name"></a> [name](#input\_name) | Name of the RabbitMQ or ActiveMQ broker. | `string` | n/a | yes |
 | <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace of the project, i.e. arc | `string` | `"arc"` | no |
 | <a name="input_publicly_accessible"></a> [publicly\_accessible](#input\_publicly\_accessible) | Whether the RabbitMQ or ActiveMQ broker is publicly accessible. | `bool` | `false` | no |
+| <a name="input_security_group_data"></a> [security\_group\_data](#input\_security\_group\_data) | (optional) Security Group data | <pre>object({<br>    security_group_ids_to_attach = optional(list(string), [])<br>    create                       = optional(bool, true)<br>    description                  = optional(string, null)<br>    ingress_rules = optional(list(object({<br>      description              = optional(string, null)<br>      cidr_block               = optional(string, null)<br>      source_security_group_id = optional(string, null)<br>      from_port                = number<br>      ip_protocol              = string<br>      to_port                  = string<br>    })), [])<br>    egress_rules = optional(list(object({<br>      description                   = optional(string, null)<br>      cidr_block                    = optional(string, null)<br>      destination_security_group_id = optional(string, null)<br>      from_port                     = number<br>      ip_protocol                   = string<br>      to_port                       = string<br>    })), [])<br>  })</pre> | <pre>{<br>  "create": false<br>}</pre> | no |
 | <a name="input_storage_type"></a> [storage\_type](#input\_storage\_type) | Storage type for the RabbitMQ or ActiveMQ or ActiveMQ broker. | `string` | `"ebs"` | no |
 | <a name="input_subnet_ids"></a> [subnet\_ids](#input\_subnet\_ids) | List of subnet IDs for the RabbitMQ or ActiveMQ broker. | `list(string)` | `[]` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to apply to resources | `map(string)` | n/a | yes |

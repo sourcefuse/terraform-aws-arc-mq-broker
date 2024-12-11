@@ -4,8 +4,8 @@ module "arc_security_group" {
 
   name          = "${var.namespace}-${var.environment}-broker-mq-sg"
   vpc_id        = var.vpc_id
-  ingress_rules = var.ingress_rules
-  egress_rules  = var.egress_rules
+  ingress_rules = var.security_group_data.ingress_rules
+  egress_rules  = var.security_group_data.egress_rules
 
   tags = var.tags
 }

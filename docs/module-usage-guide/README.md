@@ -38,8 +38,7 @@ module "arc-mq-broker" {
   deployment_mode     = var.deployment_mode
   users               = var.users
   enable_logging      = var.enable_logging
-  ingress_rules       = local.security_group_data.ingress_rules
-  egress_rules        = local.security_group_data.egress_rules
+  security_group_data = local.security_group_data
   tags                = module.tags.tags
 }
 ```
