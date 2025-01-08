@@ -2,7 +2,7 @@
 module "arc_security_group" {
   source  = "sourcefuse/arc-security-group/aws"
   version = "0.0.1"
-  
+
   name          = "${var.namespace}-${var.environment}-${var.name}-broker-mq-sg"
   vpc_id        = var.vpc_id
   ingress_rules = var.security_group_data.ingress_rules
