@@ -21,6 +21,10 @@
 
 Creates Amazon MQ brokers (ActiveMQ or RabbitMQ) with VPC, security groups, users, and CloudWatch logging.
 
+## Architecture
+
+![Architecture Diagram](./static/arch.png)
+
 ## What It Does
 
 - ActiveMQ and RabbitMQ broker support
