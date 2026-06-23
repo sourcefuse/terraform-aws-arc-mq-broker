@@ -17,6 +17,9 @@
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=sourcefuse_terraform-aws-arc-mq-broker&token=4b8c1e882ad792f7a14686684a563bccb5e6ee4c)](https://sonarcloud.io/summary/new_code?id=sourcefuse_terraform-aws-arc-mq-broker)
 
+> [!TIP]
+> 🤖 **New:** Use this module with AI assistants via the [ARC IaC MCP Server](https://github.com/sourcefuse/arc-iac-mcp) — search, scaffold, and security-scan ARC modules from natural language. [Quick setup ↓](#ai-assistant-integration-arc-iac-mcp)
+
 ## Overview
 
 Creates Amazon MQ brokers (ActiveMQ or RabbitMQ) with VPC, security groups, users, and CloudWatch logging.
